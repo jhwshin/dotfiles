@@ -36,6 +36,8 @@
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
 
+  system.copySystemConfiguration = true;
+
   # NETWORKING
   networking.hostName = "khas";
   # networking.wireless.enable = true;
