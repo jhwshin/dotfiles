@@ -39,7 +39,7 @@
   # NETWORKING
   networking.hostName = "khas";
   # networking.wireless.enable = true;
-  networking.enable.networkmanager = true;
+  networking.networkmanager.enable = true;
 
   # TIMEZONE
   time.timeZone = "Australia/Sydney";
@@ -66,12 +66,12 @@
   services.xserver.desktopManager.xfce.enable = true;
 
   # SOUND
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alas.support32Bit = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
     # jack.enable = true;
     # media-session.enable = true;
