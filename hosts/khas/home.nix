@@ -21,7 +21,7 @@
     homeDirectory = "/home/hws";
   };
 
-  # home.packages = with pkgs; [ steam ];
+  home.packages = with pkgs; [ neovim ];
 
   programs.home-manager.enable = true;
   programs.git.enable = true;

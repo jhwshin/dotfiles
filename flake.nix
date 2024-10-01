@@ -23,19 +23,14 @@
       "x86_64-linux"
       # "aarch64-darwin"
       # "x86_64-darwin"
-    ];    
+    ];
   in {
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       khas = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/configuration.nix
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hws = import ./home-manager/home.nix;
-          }
+          ./hosts/khas/configuration.nix
         ];
       };
     };
@@ -46,7 +41,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/home.nix
+          ./hosts/khas/home.nix
         ];
       };
     };
