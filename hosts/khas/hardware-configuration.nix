@@ -14,11 +14,11 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    devices = "/dev/vda2";
+    device = "/dev/vda2";
     fsType = "ext4";
   };
   fileSystems."/boot" = {
-    devices = "/dev/vda1";
+    device = "/dev/vda1";
     fsType = "vfat";
   };
 
