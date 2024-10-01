@@ -13,10 +13,14 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/vda1";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    devices = "/dev/vda2";
+    fsType = "ext4";
+  };
+  fileSystems."/boot" = {
+    devices = "/dev/vda1";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 

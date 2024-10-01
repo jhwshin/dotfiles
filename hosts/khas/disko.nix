@@ -5,22 +5,26 @@
                 device = "/dev/vda";
                 type = "disk";
                 content = {
-                    type = "table";
-                    format = "msdos";
-                    partitions = [
-                        {
-                            name = "root";
-                            part-type = "primary";
-                            start = "1M";
-                            end = "100%";
-                            bootable = true;
+                    type = "gpt";
+                    partitions = {
+                        ESP = {
+                            type = "EF00";
+                            size = "2GB";
+                            content = {
+                                type = "filesystem";
+                                format = "vfat";
+                                mountpoint = "/boot";
+                            };
+                        };
+                        root = {
+                            size = "100%";
                             content = {
                                 type = "filesystem";
                                 format = "ext4";
                                 mountpoint = "/";
                             };
-                        }
-                    ];
+                        };
+                    };
                 };
             };
         };
