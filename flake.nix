@@ -36,11 +36,42 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/khas/configuration.nix
-          disko.nixosModules.disko
+          disko.nixosModules.disko {
+            disko.devices = {
+                disk = {
+                    main = {
+                        device = "/dev/vda";
+                        type = "disk";
+                        content = {
+                            type = "gpt";
+                            partitions = {
+                                ESP = {
+                                    type = "EF00";
+                                    size = "2GB";
+                                    content = {
+                                        type = "filesystem";
+                                        format = "vfat";
+                                        mountpoint = "/boot";
+                                    };
+                                };
+                                root = {
+                                    size = "100%";
+                                    content = {
+                                        type = "filesystem";
+                                        format = "ext4";
+                                        mountpoint = "/";
+                                    };
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+          };
         ];
       };
     };
-
+    # $ sudo nix run 'github:nix-community/disko#disko-install' -- --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/sda
     # nix shell nixpkgs#home-manager
     # Available through 'home-manager switch --flake .#your-username@your-hostname'
     homeConfigurations = {
