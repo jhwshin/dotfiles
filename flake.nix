@@ -49,13 +49,13 @@
         modules = [
           ./hosts/khas
           disko.nixosModules.disko
-        ] ++ commonNixosModules
+        ] ++ commonNixosModules;
       };
       tassadar = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/tassadar
-        ] ++ commonNixosModules
+        ] ++ commonNixosModules;
       };
     };
 
@@ -65,14 +65,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/khas/home.nix
-        ] ++ commonHomeModules
+        ] ++ commonHomeModules;
       };
       "hws@tassadar" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/tassadar/home.nix
-        ] ++ commonHomeModules
+        ] ++ commonHomeModules;
       };
     };
   };
