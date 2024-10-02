@@ -66,14 +66,13 @@
   # APPLICATIONS
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
-
+    home-manager
   ];
 
   users.users = {
     hws = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
-        home-manager
       ];
       extraGroups = ["wheel"];
     };
