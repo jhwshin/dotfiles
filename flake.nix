@@ -28,59 +28,51 @@
       # "aarch64-darwin"
       # "x86_64-darwin"
     ];
-  in {
 
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+    commonNixosModules = [
+      ./modules/nixos
+    ];
+
+    commonHomeModules = [
+      ./modules/home-manager
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
+    ];
+
+  in {
     nixosConfigurations = {
       khas = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./hosts/khas/configuration.nix
-          disko.nixosModules.disko {
-            disko.devices = {
-                disk = {
-                    main = {
-                        device = "/dev/vda";
-                        type = "disk";
-                        content = {
-                            type = "gpt";
-                            partitions = {
-                                ESP = {
-                                    type = "EF00";
-                                    size = "2G";
-                                    content = {
-                                        type = "filesystem";
-                                        format = "vfat";
-                                        mountpoint = "/boot";
-                                    };
-                                };
-                                root = {
-                                    size = "100%";
-                                    content = {
-                                        type = "filesystem";
-                                        format = "ext4";
-                                        mountpoint = "/";
-                                    };
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-          }
-        ];
+          ./hosts/khas
+          disko.nixosModules.disko
+        ] ++ commonNixosModules
+      };
+      tassadar = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/tassadar
+        ] ++ commonNixosModules
       };
     };
-    # $ sudo nix run 'github:nix-community/disko#disko-install' -- --flake '/tmp/config/etc/nixos#mymachine' --disk main /dev/sda
-    # nix shell nixpkgs#home-manager
-    # Available through 'home-manager switch --flake .#your-username@your-hostname'
+
     homeConfigurations = {
       "hws@khas" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/khas/home.nix
-        ];
+        ] ++ commonHomeModules
+      };
+      "hws@tassadar" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/tassadar/home.nix
+        ] ++ commonHomeModules
       };
     };
   };

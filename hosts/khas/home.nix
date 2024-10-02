@@ -1,5 +1,3 @@
-# ~/.config/nixpkgs/home.nix
-{
   inputs,
   outputs,
   lib,
@@ -8,13 +6,8 @@
   ...
 }: {
   imports = [
+    
   ];
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   home = {
     username = "hws";
