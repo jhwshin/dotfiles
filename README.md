@@ -4,6 +4,9 @@
 ## Install
 
 ```bash
+# to reset flake cache (updated repo)
+--refresh
+
 # install with disko-install + nixos-install (and print to stdout + log.txt)
 nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko-install' -- --write-efi-boot-entries --flake 'github:jhwshin/dotfiles#HOST' --disk main '/dev/<sdX>' 2>&1 | tee log.txt
 
