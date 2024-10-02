@@ -9,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./home.nix
   ];
 
   # BOOTLOADER
