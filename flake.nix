@@ -44,6 +44,12 @@
         modules = [
           ./hosts/khas
           disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hws = import ./hosts/khas/home.nix;
+          }
         ] ++ commonNixosModules;
       };
       tassadar = nixpkgs.lib.nixosSystem {

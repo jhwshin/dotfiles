@@ -10,8 +10,11 @@
 # install with disko-install + nixos-install (and print to stdout + log.txt)
 nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko-install' -- --write-efi-boot-entries --flake 'github:jhwshin/dotfiles#HOST' --disk main '/dev/<sdX>' 2>&1 | tee log.txt
 
+# install disko-install
+sudo nix --extra-experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode disko --flake github:jhwshin/dotfiles#khas
+
 # install with nixos-install
-nixos-install --root /mnt --flake github.com:jhwshin/dotfile#HOST
+nixos-install --root /mnt --flake github:jhwshin/dotfile#HOST
 
 # set password for root
 mount /dev/<sdXY> /mnt # if not mounted
@@ -64,3 +67,18 @@ nix run nixpkgs#<PACKAGE> <COMMAND>
 nix shell nixpkgs#<PACKAGE> -c <COMMAND>
 nix shell -p p1 p2 ...
 ```
+
+## TODO
+
+- [O] configuration.nix
+- [O] hardware-configuration.nix
+- [O] flakes
+- [O] home-manager
+- [O] multiple hosts
+- [O] disko
+- [] impermanence
+- [] btrfs
+- [] luks
+- [] port arch configs stuff to nixos
+- [] modules
+- [] secrets
