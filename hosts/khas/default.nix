@@ -73,7 +73,7 @@
     hws = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
-
+        home-manager
       ];
       extraGroups = ["wheel"];
     };
