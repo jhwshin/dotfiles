@@ -30,7 +30,7 @@
     ];
 
     commonNixosModules = [
-      ./modules/nixos
+      ./hosts
     ];
 
     commonHomeModules = [

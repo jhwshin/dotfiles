@@ -1,5 +1,4 @@
 {
-  self,
   inputs,
   outputs,
   lib,
@@ -10,7 +9,6 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    "${self}/modules/nixos/nvidia.nix"
   ];
 
   # hostname

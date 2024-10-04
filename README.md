@@ -27,6 +27,17 @@ nixos-generate-config --dir <PATH> --root /mnt
 # --show-hardware-config
 ```
 
+```bash
+fdisk /dev/<sdX>
+
+git clone https://github.com/jhwshin/dotfiles
+
+nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko#disko-install' -- --write-efi-boot-entries --flake '.#HOST' --disk main '/dev/<sdX>' 2>&1 | tee log.txt
+
+mount /dev/<sdXY> /mnt
+mount /dev/<sdXY> /mnt/boot
+```
+
 ## Rebuild
 
 ```bash
@@ -82,3 +93,18 @@ nix shell -p p1 p2 ...
 - [] port arch configs stuff to nixos
 - [] modules
 - [] secrets
+
+---
+
+programs.git.enable
+users.users.<name?>.shell
+
+hardware.bluetooth.enable
+services.bluetooth.enable
+services.blueman.enable
+
+---
+
+home-manager
+
+services.barrier.client.enable
