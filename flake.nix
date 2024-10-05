@@ -30,11 +30,11 @@
     ];
 
     commonNixosModules = [
-      ./hosts/common-hosts
+      ./hosts/common-hosts.nix
     ];
 
     commonHomeModules = [
-      ./hosts/common-home
+      ./hosts/common-home.nix
     ];
 
   in {
