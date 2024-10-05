@@ -1,3 +1,4 @@
+{...}:
 {
   disko.devices = {
     disk = {
@@ -12,7 +13,7 @@
           partitions = {
 
             ESP = {
-              label = "boot";
+              label = "";
               type = "EF00";
               size = "2G";
               content = {
@@ -36,7 +37,6 @@
                 ];
                 settings = {
                   allowDiscards = true;
-                  passwordFile = "/tmp/secret.key";
                 };
 
                 content = {

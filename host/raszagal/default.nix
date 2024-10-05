@@ -7,6 +7,11 @@
   ...
 }: {
 
+  imports = [
+    ./hardware-configuration.nix
+    ./disko.nix
+  ];
+
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
@@ -37,6 +42,9 @@
       useOSProber = true;
     };
   };
+
+  # hostname
+  networking.hostName = "khas";
 
   # timezone
   time.timeZone = "Australia/Sydney";
@@ -74,7 +82,7 @@
   };
 
   # networking
-  networking.networkmanager.enable = true;
+  networking.networkManager.enable = true;
 
   # desktop environment
   services.xserver.enable = true;

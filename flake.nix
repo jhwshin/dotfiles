@@ -1,5 +1,5 @@
 {
-  description = "";
+  description = "jhwshin's nix dotfiles";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -25,14 +25,8 @@
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
-    ];
-
-    commonNixosModules = [
-      ./hosts/common-hosts.nix
-    ];
-
-    commonHomeModules = [
-      ./hosts/common-home.nix
+      # "aarch64-darwin"
+      # "x86_64-darwin"
     ];
 
   in {
@@ -48,17 +42,17 @@
             home-manager.useUserPackages = true;
             home-manager.users.hws = import ./hosts/raszagal/home.nix;
           }
-        ] ++ commonNixosModules;
+        ];
       };
     };
-    
+
     homeConfigurations = {
       "hws@raszagal" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/raszagal/home.nix
-        ] ++ commonHomeModules;
+        ];
       };
     };
   };
