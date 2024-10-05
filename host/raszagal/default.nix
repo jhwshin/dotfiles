@@ -4,12 +4,13 @@
   lib,
   config,
   pkgs,
+  disko,
+  home-manager,
   ...
 }: {
 
   imports = [
     ./hardware-configuration.nix
-    ./disko.nix
   ];
 
   nix = let
