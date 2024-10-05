@@ -20,23 +20,22 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
               };
             };
 
-            luks = {
+            root = {
               label = "luks";
               size = "100%";
               content = {
                 type = "luks";
                 name = "cryptroot";
                 extraOpenArgs = [
-                  # "--allow-discards"
+                  "--allow-discards"
                   "--perf-no_read_workqueue"
                   "--perf-no_write_workqueue"
                 ];
                 settings = {
-                  allowDiscards = true;
+
                 };
 
                 content = {
@@ -52,29 +51,19 @@
                       mountOptions = [
                         "subvol=/" "defaults" "noatime"
                       ];
-                    };
+                    }
                     "@" = {
                       mountpoint = "/";
                       mountOptions = [
                         "subvol=@" "defaults" "noatime"
                       ];
-                    };
+                    }
                     "@home" = {
                       mountpoint = "/home";
                       mountOptions = [
                         "subvol=@home" "defaults" "noatime"
                       ];
-                    };
-                    "@nix" = {
-                      mountpoint = "/nix";
-                      mountOptions = [
-                        "subvol=@home" "defaults" "noatime"
-                      ];
-                    };
-                    "@swap" = {
-                      mountpoint = "/.swapvol";
-                      swap.swapfile.size = "1024M";
-                    };
+                    }
                   }
                 };
               };

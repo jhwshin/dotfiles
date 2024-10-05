@@ -30,11 +30,11 @@
     ];
 
     commonNixosModules = [
-      ./hosts
+      ./hosts/common-hosts
     ];
 
     commonHomeModules = [
-      ./modules/home-manager
+      ./hosts/common-home
     ];
 
   in {
@@ -58,6 +58,19 @@
           ./hosts/tassadar
         ] ++ commonNixosModules;
       };
+      raszagal = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/raszagal
+          disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hws = import ./hosts/raszagal/home.nix;
+          }
+        ] ++ commonNixosModules;
+      };
     };
 
     homeConfigurations = {
@@ -73,6 +86,13 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/tassadar/home.nix
+        ] ++ commonHomeModules;
+      };
+      "hws@raszagal" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/raszagal/home.nix
         ] ++ commonHomeModules;
       };
     };

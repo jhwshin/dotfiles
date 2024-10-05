@@ -1,5 +1,25 @@
 # dotfiles
 
+##
+
+- hosts
+ - common-hosts
+ - common-home
+ - HOST
+  - default
+  - disko
+  - hardware
+  - home
+- modules
+ - nixos
+ - home-manager
+
+## Partitioning
+
+Dualboot
+```bash
+
+```
 
 ## Install
 
