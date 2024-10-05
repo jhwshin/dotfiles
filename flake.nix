@@ -1,5 +1,5 @@
 {
-  description = "jhwshin's nix dotfiles";
+  description = "";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -25,8 +25,6 @@
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
-      # "aarch64-darwin"
-      # "x86_64-darwin"
     ];
 
     commonNixosModules = [
@@ -39,25 +37,6 @@
 
   in {
     nixosConfigurations = {
-      khas = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/khas
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hws = import ./hosts/khas/home.nix;
-          }
-        ] ++ commonNixosModules;
-      };
-      tassadar = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/tassadar
-        ] ++ commonNixosModules;
-      };
       raszagal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -72,22 +51,8 @@
         ] ++ commonNixosModules;
       };
     };
-
+    
     homeConfigurations = {
-      "hws@khas" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/khas/home.nix
-        ] ++ commonHomeModules;
-      };
-      "hws@tassadar" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./hosts/tassadar/home.nix
-        ] ++ commonHomeModules;
-      };
       "hws@raszagal" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};

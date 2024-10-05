@@ -74,7 +74,7 @@
   };
 
   # networking
-  networking.networkManager.enable = true;
+  networking.networkmanager.enable = true;
 
   # desktop environment
   services.xserver.enable = true;
