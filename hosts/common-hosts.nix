@@ -107,7 +107,7 @@
       open.ssh.authorizedKeys.keys = [
 
       ];
-    }
+    };
   };
 
   system.stateVersion = "24.05";
