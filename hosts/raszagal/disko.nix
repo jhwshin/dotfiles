@@ -21,12 +21,11 @@
 
             cryptroot = {
               name = "cryptroot";
-              label = "luks";
+              label = "cryptroot";
               size = "100%";
               content = {
                 type = "luks";
                 name = "cryptroot";
-                label = "luks";
                 extraOpenArgs = [
                   # "--allow-discards"
                   "--perf-no_read_workqueue"
