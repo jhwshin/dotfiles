@@ -22,7 +22,6 @@
 
   home.packages = with pkgs; [ neovim ];
 
-  programs.home-manager.enable = true;
   programs.git.enable = true;
   programs.kitty.enable = true;
 
