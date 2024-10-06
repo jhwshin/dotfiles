@@ -11,6 +11,8 @@
     ./disko.nix
   ];
 
+  programs.htop.enable = true;
+
   users.users = {
     hws = {
       isNormalUser = true;
