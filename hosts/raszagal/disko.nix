@@ -20,7 +20,6 @@
             size = "100%";
             content = {
               type = "luks";
-              label = "cryptroot";
               name = "cryptroot";
               askPassword = true;
               extraFormatArgs = [
@@ -32,6 +31,7 @@
                 "--pbkdf-parallel 4"
                 "--iter-time 2000"
                 "--cipher aes-xts-plain64"
+                "--label cryptroot"
               ];
               extraOpenArgs = [
                 "--perf-no_read_workqueue"
