@@ -19,9 +19,8 @@
               };
             };
 
-            cryptroot = {
-              name = "cryptroot";
-              label = "cryptroot";
+            luks = {
+              label = "luks";
               size = "100%";
               content = {
                 type = "luks";
