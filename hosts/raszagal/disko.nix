@@ -45,7 +45,7 @@
                     "/" = {
                       mountpoint = "/.btrfsroot";
                       mountOptions = [
-                        "subvol=/" "defaults" "noatime"
+                        "subvolid=5" "defaults" "noatime"
                       ];
                     };
                     "@" = {
