@@ -1,19 +1,14 @@
-{disko, ...}:
 {
   disko.devices = {
     disk = {
       main = {
-
         device = "/dev/vda";
         type = "disk";
-
         content = {
-
           type = "gpt";
           partitions = {
-
             ESP = {
-              label = "";
+              label = "boot";
               type = "EF00";
               size = "2G";
               content = {

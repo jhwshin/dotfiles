@@ -4,14 +4,18 @@
   lib,
   config,
   pkgs,
-  disko,
-  home-manager,
   ...
 }: {
-
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix
   ];
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
 
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -27,30 +31,20 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
-  # enable propreitary packages
-  nixpkgs.config.allowUnfree = true;
+  # BOOTLOADER
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.useOSProber = true;
 
-  # boot loader
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
-    };
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-      useOSProber = true;
-    };
-  };
+  # NETWORKING
+  networking.hostName = "raszagal";
+  # networking.wireless.enable = true;
+  networking.networkmanager.enable = true;
 
-  # hostname
-  networking.hostName = "khas";
-
-  # timezone
+  # TIMEZONE
   time.timeZone = "Australia/Sydney";
 
-  # locale
+  # LOCALE
   i18n.defaultLocale = "en_AU.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_AU.UTF-8";
@@ -64,13 +58,14 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
-  # cpu
-  hardware.cpu.intel.updateMicrocode = true;
+  # DISPLAY SERVER
+  services.xserver.enable = true;
 
-  # btrfs
-  services.locate.pruneNames = [ ".snapshots" ];
+  # DESKTOP ENVIRONMENT
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
 
-  # sound
+  # SOUND
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -82,40 +77,30 @@
     # media-session.enable = true;
   };
 
-  # networking
-  networking.networkManager.enable = true;
+  # TOUCHPAD
+  # services.xserver.libinput.enable = true;
 
-  # desktop environment
-  services.xserver.enable = true;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.windowManager.i3.enable = true;
-
-  # applications
-  programs.git.enable = true;
+  # APPLICATIONS
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
-    home-manager
+
   ];
 
-  # ssh
-  services.openssh = {
-    enable = true;
-    settings = {
-      permitRootLogin = "no";
-      PasswordAuthentication = true;
+  users.users = {
+    hws = {
+      isNormalUser = true;
+      openssh.authorizedKeys.keys = [
+
+      ];
+      extraGroups = ["wheel"];
     };
   };
 
-  # users
-  users.users = {
-    hws = {
-      isNormaluser = true;
-      extraGroups = [ "wheel" ];
-      open.ssh.authorizedKeys.keys = [
-
-      ];
+  services.openssh = {
+    enable = true;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = true;
     };
   };
 
