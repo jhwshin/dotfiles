@@ -28,20 +28,13 @@
       # "aarch64-darwin"
       # "x86_64-darwin"
     ];
-
   in {
+    
     nixosConfigurations = {
-      raszagal = nixpkgs.lib.nixosSystem {
+      khas = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/raszagal
-          disko.nixosModules.disko
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.hws = import ./hosts/raszagal/home.nix;
-          }
         ];
       };
     };
