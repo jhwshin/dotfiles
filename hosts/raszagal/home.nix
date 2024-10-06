@@ -1,4 +1,3 @@
-# ~/.config/nixpkgs/home.nix
 {
   inputs,
   outputs,

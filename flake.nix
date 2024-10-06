@@ -1,5 +1,5 @@
 {
-  description = "jhwshin's nix dotfiles";
+  description = "jhwshin dotfiles";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -25,11 +25,12 @@
       "aarch64-linux"
       "i686-linux"
       "x86_64-linux"
-      # "aarch64-darwin"
-      # "x86_64-darwin"
     ];
-  in {
     
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+  in {
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
+
     nixosConfigurations = {
       raszagal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
@@ -42,7 +43,7 @@
 
     homeConfigurations = {
       "hws@raszagal" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs.legacyPackages.x86_64-linux; # 
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/raszagal/home.nix
