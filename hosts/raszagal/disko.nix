@@ -20,6 +20,7 @@
             size = "100%";
             content = {
               type = "luks";
+              label = "cryptroot";
               name = "cryptroot";
               askPassword = true;
               extraFormatArgs = [
@@ -41,7 +42,7 @@
               };
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ];
+                extraArgs = [ "-f" "-L" "root" ];
                 subvolumes = {
                   "/" = {
                     mountpoint = "/.btrfsroot";
