@@ -31,7 +31,7 @@
   in {
     
     nixosConfigurations = {
-      khas = nixpkgs.lib.nixosSystem {
+      raszagal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/raszagal
