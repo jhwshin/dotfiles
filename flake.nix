@@ -35,6 +35,7 @@
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/raszagal
+          disko.nixosModules.disko
         ];
       };
     };
