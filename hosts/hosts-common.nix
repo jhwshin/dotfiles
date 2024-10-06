@@ -80,6 +80,7 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
+    btop
   ];
 
   services.openssh = {

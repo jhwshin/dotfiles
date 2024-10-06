@@ -19,6 +19,7 @@
     username = "hws";
     homeDirectory = "/home/hws";
   };
+  programs.home-manager.enable = true;
 
   home.packages = with pkgs; [ neovim ];
 

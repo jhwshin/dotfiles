@@ -13,6 +13,10 @@
 
   programs.htop.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    mtr
+  ];
+
   users.users = {
     hws = {
       isNormalUser = true;

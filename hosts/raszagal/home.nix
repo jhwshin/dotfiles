@@ -10,6 +10,8 @@
     ../home-common.nix
   ];
 
+  home.packages = with pkgs; [ ranger ];
+
   programs.fastfetch.enable = true;
 
 }
