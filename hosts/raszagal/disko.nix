@@ -19,12 +19,14 @@
               };
             };
 
-            luks = {
+            cryptroot = {
+              name = "cryptroot";
               label = "luks";
               size = "100%";
               content = {
                 type = "luks";
                 name = "cryptroot";
+                label = "luks";
                 extraOpenArgs = [
                   # "--allow-discards"
                   "--perf-no_read_workqueue"
