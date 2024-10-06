@@ -37,6 +37,12 @@
         modules = [
           ./hosts/raszagal
           disko.nixosModules.disko
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.hws = import ./hosts/raszagal/home.nix;
+          }
         ];
       };
     };
