@@ -35,6 +35,7 @@
       raszagal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
+          ./hosts/hosts-common.nix
           ./hosts/raszagal
           disko.nixosModules.disko
           home-manager.nixosModules.home-manager
