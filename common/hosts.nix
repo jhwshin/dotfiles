@@ -79,7 +79,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     btop
-    outputs.nur.repos.LuisChDev.nordvpn
+    inputs.nur.repos.LuisChDev.nordvpn
   ];
 
   services.openssh = {
