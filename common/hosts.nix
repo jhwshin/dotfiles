@@ -4,7 +4,6 @@
   lib,
   config,
   pkgs,
-  nur,
   ...
 }: {
   nix = let
@@ -80,7 +79,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     btop
-    nur.repos.LuisChDev.nordvpn
+    outputs.nur.repos.LuisChDev.nordvpn
   ];
 
   services.openssh = {
