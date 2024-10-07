@@ -10,9 +10,15 @@
     ../../common/home.nix
   ];
 
-  home.packages = with pkgs; [ ranger ];
+  home = {
+    username = "hws";
+    homeDirectory = "/home/hws";
+  };
 
   programs.fastfetch.enable = true;
 
+  home.packages = with pkgs; [
+    ranger
+  ];
 }
 

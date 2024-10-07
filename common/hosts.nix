@@ -6,8 +6,6 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config.allowUnfree = true;
-
   nix = let
     flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
   in {
@@ -22,17 +20,17 @@
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   # BOOTLOADER
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
 
   # NETWORKING
-  networking.hostName = "raszagal";
-  # networking.wireless.enable = true;
   networking.networkmanager.enable = true;
 
   # TIMEZONE
@@ -81,6 +79,7 @@
   environment.systemPackages = with pkgs; [
     home-manager
     btop
+    nur.repos.LuisChDev.nordvpn
   ];
 
   services.openssh = {

@@ -10,6 +10,8 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs = {
@@ -32,12 +34,14 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     nixosConfigurations = {
+
       raszagal = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./common/hosts.nix
           ./hosts/raszagal
           disko.nixosModules.disko
+          nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -49,6 +53,7 @@
     };
 
     homeConfigurations = {
+      
       "hws@raszagal" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux; # 
         extraSpecialArgs = {inherit inputs outputs;};

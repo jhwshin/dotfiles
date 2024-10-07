@@ -6,6 +6,7 @@
       content = {
         type = "gpt";
         partitions = {
+
           ESP = {
             type = "EF00";
             size = "2G";
@@ -16,6 +17,7 @@
               mountOptions = [ "defaults" "umask=0077" ];
             };
           };
+
           luks = {
             size = "100%";
             content = {
@@ -40,26 +42,32 @@
               settings = {
                 allowDiscards = true;
               };
+
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" "-L" "root" ];
                 subvolumes = {
+
                   "/" = {
                     mountpoint = "/.btrfsroot";
                     mountOptions = [ "subvolid=5" "defaults" "compress=zstd:3" "noatime" "nodiratime" ];
                   };
+
                   "@" = {
                     mountpoint = "/";
                     mountOptions = [ "subvol=/@" "defaults" "compress=zstd:3" "noatime" "nodiratime" ];
                   };
+
                   "@home" = {
                     mountpoint = "/home";
                     mountOptions = [ "subvol=/@home" "defaults" "compress=zstd:3" "noatime" "nodiratime" ];
                   };
+
                   "@nix" = {
                     mountpoint = "/nix";
                     mountOptions = [ "subvol=/@nix" "defaults" "compress=zstd:3" "noatime" "nodiratime" ];
                   };
+
                   "@swap" = {
                     mountpoint = "/.swapvol";
                     swap.swapfile ={
@@ -67,8 +75,10 @@
                       path = "swapfile";
                     };
                   };
+                  
                 };
               };
+
             };
           };
         };

@@ -11,12 +11,6 @@
     ./disko.nix
   ];
 
-  programs.htop.enable = true;
-
-  environment.systemPackages = with pkgs; [
-    mtr
-  ];
-
   users.users = {
     hws = {
       isNormalUser = true;
@@ -27,5 +21,11 @@
     };
   };
 
-  system.stateVersion = "24.05";
+  networking.hostName = "raszagal";
+
+  programs.htop.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    mtr
+  ];
 }
